@@ -18,7 +18,14 @@ class Inventory(LoginRequiredMixin, View):
 
 class Dashboard(LoginRequiredMixin, View):
 	def get(self, request):
-		return render(request, 'inventory/dashboard.html')
+		low_inventory_items = self.get_low_inventory_items()
+		return render(request, 'inventory/dashboard.html', {'low_inventory_items': low_inventory_items})
+	def get_low_inventory_items(self):
+        # Define your low inventory threshold
+		low_inventory_threshold = 10
+        # Query low inventory items for the current user
+		low_inventory_items = InventoryItem.objects.filter(user=self.request.user, quantity__lt=low_inventory_threshold)
+		return low_inventory_items
 
 class Finance(LoginRequiredMixin, View):
 	def get(self, request):
