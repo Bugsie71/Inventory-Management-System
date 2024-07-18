@@ -2,5 +2,45 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+{% extends 'inventory/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container mt-5">
+	<h1 class="mb-4">Finance</h1>
+	<form id="financeForm">
+			<div class="form-group mt-3">
+					<label for="sales">Sales</label>
+					<input type="number" class="form-control" id="sales" placeholder="Enter sales">
+			</div>
+			<div class="form-group mt-3">
+					<label for="payroll">Payroll for Employees</label>
+					<input type="number" class="form-control" id="payroll" placeholder="Enter payroll for employees">
+			</div>
+			<div class="form-group mt-3">
+					<label for="consumables">Consumables</label>
+					<input type="number" class="form-control" id="consumables" placeholder="Enter consumables">
+			</div>
+			<button type="button" class="btn btn-primary mt-3" onclick="calculateNet()">Submit</button>
+	</form>
+	<h3 class="mt-4">Net Sales: <span id="net-results">$0</span></h3>
+	<h3 class="mt-4">Gross Sales: <span id="gross-results">$0</span></h3>
+</div>
+
+<script>
+	function calculateNet() {
+			var sales = parseFloat(document.getElementById('sales').value) || 0;
+			var payroll = parseFloat(document.getElementById('payroll').value) || 0;
+			var consumables = parseFloat(document.getElementById('consumables').value) || 0;
+
+			var totalExpenses = payroll + consumables;
+			var net = sales - totalExpenses;
+			var gross = sales - consumables;
+
+			document.getElementById('net-results').textContent = net.toFixed(2);
+			document.getElementById('gross-results').textContent = gross.toFixed(2);
+	}
+</script>
 
 {% endblock content %}
