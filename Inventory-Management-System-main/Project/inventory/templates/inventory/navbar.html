@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">CSCI3300 Inventory Manager</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarColor01"
+      aria-controls="navbarColor01"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
+      <ul class="navbar-nav">
+        
+        {% if user.is_authenticated %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'inventory' %}">Inventory</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'finance' %}">Finance</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ user.username }}</a>
+        </li>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-secondary" type="submit">logout</button>
+        </form>
+
+        {% else %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Log In</a>
+        </li>
+        <li class="nav-item px-2 bg-secondary">
+          <a class="nav-link text-secondary" href="{% url 'signup' %}">Sign Up</a>
+        </li>
+
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
