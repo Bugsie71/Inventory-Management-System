@@ -22,6 +22,8 @@ Type in the following code
 virtualenv env
 source env/bin/activate
 pip install django
+pip install django-crispy-forms
+pip install crispy-bootstrap5
 ```
 
 Then navigate to main Project folder
